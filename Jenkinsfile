@@ -6,7 +6,7 @@ pipeline {
     stages{
         stage('Build maven'){
             steps{
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/amigo1975/book-service']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/StephanPaulRamirez/tingeso1-backend']])
                 bat 'mvn clean package'
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t mtisw/book_service:latest .'
+                    bat 'docker build -t stephanpaulramirez/backend . --no-cache'
                 }
             }
         }
@@ -29,9 +29,9 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'dhpswid', variable: 'dhpsw')]) {
-                        bat 'docker login -u mtisw -p %dhpsw%'
+                        bat 'docker login -u stephanpaulramirez -p %dhpsw%'
                    }
-                   bat 'docker push mtisw/book_service:latest'
+                   bat 'docker push stephanpaulramirez/backend:latest'
                 }
             }
         }
