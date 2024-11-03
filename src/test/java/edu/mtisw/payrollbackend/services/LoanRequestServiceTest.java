@@ -108,13 +108,7 @@ class LoanRequestServiceTest {
 
         Long calculatedCosts = loanRequestService.getLoanRequestCosts(loanRequest);
 
-        double desgravamenInsurance = 100000000.0 * 0.0003;
-        long fireInsurance = 20000L;
-        double administrationFee = 100000000.0 * 0.01;
-        double monthlyCost = 632649L + desgravamenInsurance + fireInsurance;
-        double expectedTotalCost = (monthlyCost * (20.0f * 12)) + administrationFee;
-
-        assertEquals(Math.round(expectedTotalCost), calculatedCosts);
+        assertEquals(164835760, calculatedCosts);
     }
 
 }
